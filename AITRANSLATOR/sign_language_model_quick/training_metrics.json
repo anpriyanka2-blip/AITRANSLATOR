@@ -1,0 +1,45 @@
+{
+  "epochs": [
+    1
+  ],
+  "accuracy": [
+    0.04270462691783905
+  ],
+  "loss": [
+    4.377865314483643
+  ],
+  "val_accuracy": [
+    0.0422535203397274
+  ],
+  "val_loss": [
+    3.7256293296813965
+  ],
+  "labels": [
+    "again",
+    "agree",
+    "answer",
+    "attendance",
+    "book",
+    "break",
+    "careful",
+    "change",
+    "chat",
+    "congratulations",
+    "email",
+    "file"
+  ],
+  "class_counts": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+  ]
+}

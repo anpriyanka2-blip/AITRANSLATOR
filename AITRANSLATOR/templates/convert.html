@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Text to Sign - AI SignBridge{% endblock %}
+{% block content %}
+  <section class="page-head">
+    <div>
+      <h1>Text to Sign Video</h1>
+      <p class="muted mb-0">Type an available word or phrase and view its sign video plus training frames.</p>
+    </div>
+  </section>
+
+  <section class="row g-3">
+    <div class="col-lg-5">
+      <div class="panel">
+        <label class="label-sm mb-2">Text</label>
+        <input class="form-control form-control-lg" id="text-input" placeholder="Example: good morning">
+        <label class="label-sm mt-3 mb-2">Output language</label>
+        <select class="form-select" id="language">
+          <option value="english">English</option>
+          <option value="hindi">Hindi</option>
+          <option value="telugu">Telugu</option>
+          <option value="kannada">Kannada</option>
+        </select>
+        <button class="btn btn-glow mt-3" id="convert-text"><i class="bi bi-arrow-left-right"></i> Convert to Sign</button>
+        <div class="speech-status mt-3" id="speech-status"></div>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <div id="text-result" class="panel muted">Converted sign videos will appear here.</div>
+    </div>
+  </section>
+{% endblock %}

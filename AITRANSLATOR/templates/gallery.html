@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Sign Videos - AI SignBridge{% endblock %}
+{% block content %}
+  <section class="page-head">
+    <div>
+      <h1>Available Sign Videos</h1>
+      <p class="muted mb-0">Real motion clips are shown when collected. Frame-animation previews are used only as fallback.</p>
+    </div>
+    <input class="form-control" id="gallery-search" style="max-width: 280px" placeholder="Search signs">
+  </section>
+
+  <section class="gallery">
+    {% for sign in signs %}
+      <article class="sign-card" data-label="{{ sign.label }}">
+        {% if sign.video %}
+          <video src="{{ sign.video }}" controls loop muted></video>
+        {% elif sign.preview %}
+          <img src="{{ sign.preview }}" alt="{{ sign.label }}">
+        {% endif %}
+        <div class="sign-card-body">
+          <div class="d-flex justify-content-between gap-2 align-items-start">
+            <div>
+              <strong class="text-capitalize">{{ sign.label }}</strong>
+              <div class="muted small">{{ sign.frame_count }} training frames</div>
+              <div class="small fw-bold {% if sign.has_real_video %}text-success{% else %}text-warning{% endif %}">
+                {{ "Real motion video" if sign.has_real_video else "Fallback preview only" }}
+              </div>
+            </div>
+            {% if sign.video %}
+              <a class="btn btn-sm btn-ghost" href="{{ sign.video }}" download><i class="bi bi-download"></i></a>
+            {% endif %}
+          </div>
+          <div class="small muted mt-2">Hindi: {{ sign.translations.hindi }}</div>
+          <div class="small muted">Telugu: {{ sign.translations.telugu }}</div>
+          <div class="small muted">Kannada: {{ sign.translations.kannada }}</div>
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+{% endblock %}

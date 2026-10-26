@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Live Detection - AI SignBridge{% endblock %}
+{% block content %}
+  <section class="page-head">
+    <div>
+      <h1>Real-Time Sign Detection</h1>
+      <p class="muted mb-0">Start webcam prediction, hold one sign steady, then stop to save and speak the stable output.</p>
+    </div>
+    <span class="status-chip"><i class="bi bi-camera-video"></i> Camera {{ "Ready" if camera_available else "Unavailable" }}</span>
+  </section>
+
+  <section class="row g-3">
+    <div class="col-xl-8">
+      <div class="panel camera-frame">
+        {% if camera_available %}
+          <img src="{{ url_for('video_feed') }}" alt="Live webcam stream">
+        {% else %}
+          <div class="p-5 text-center muted">Camera stream unavailable. Check OpenCV, webcam permission, and model files.</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-xl-4">
+      <div class="panel">
+        <div class="output-box mb-2"><span class="label-sm">Predicted Text</span><strong id="live-label">Waiting</strong></div>
+        <div class="output-box mb-2"><span class="label-sm">Confidence</span><strong id="live-confidence">0.0%</strong></div>
+        <div class="output-box mb-2"><span class="label-sm">Stable Output</span><strong id="stable-label">-</strong></div>
+        <div class="output-box mb-2"><span class="label-sm">Hindi</span><strong id="live-hindi">-</strong></div>
+        <div class="output-box mb-2"><span class="label-sm">Telugu</span><strong id="live-telugu">-</strong></div>
+        <div class="output-box mb-3"><span class="label-sm">Kannada</span><strong id="live-kannada">-</strong></div>
+        <div class="d-flex flex-wrap gap-2">
+          <button class="btn btn-glow" id="start-prediction" {% if not camera_available %}disabled{% endif %}><i class="bi bi-play-fill"></i> Start</button>
+          <button class="btn btn-danger" id="stop-prediction" disabled><i class="bi bi-stop-fill"></i> Stop and Save</button>
+          <button class="btn btn-ghost" id="speak-live"><i class="bi bi-volume-up"></i> Speak</button>
+        </div>
+        <div class="speech-status mt-3" id="speech-status"></div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

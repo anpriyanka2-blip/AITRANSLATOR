@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}History - AI SignBridge{% endblock %}
+{% block content %}
+  <section class="page-head">
+    <div>
+      <h1>Prediction History</h1>
+      <p class="muted mb-0">SQLite records from webcam, uploaded media, and text conversion.</p>
+    </div>
+  </section>
+
+  <section class="d-grid gap-2">
+    {% for item in history %}
+      <div class="history-row">
+        <span class="badge-soft">{{ item.source_type }}</span>
+        <div>
+          <strong>{{ item.label }}</strong>
+          <div class="muted small">{{ item.created_at }}</div>
+          {% if item.input_text %}<div class="muted small">Input: {{ item.input_text }}</div>{% endif %}
+        </div>
+        <div class="text-end fw-bold">{{ "%.1f"|format(item.confidence * 100) }}%</div>
+      </div>
+    {% else %}
+      <div class="panel muted">No predictions saved yet.</div>
+    {% endfor %}
+  </section>
+{% endblock %}

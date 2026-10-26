@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Upload Prediction - AI SignBridge{% endblock %}
+{% block content %}
+  <section class="page-head">
+    <div>
+      <h1>Upload Image or Video Prediction</h1>
+      <p class="muted mb-0">Upload a sign image or short video. The model predicts the label, confidence, and speech output.</p>
+    </div>
+  </section>
+
+  <section class="row g-3">
+    <div class="col-lg-5">
+      <div class="panel">
+        <form id="upload-form">
+          <label class="label-sm mb-2">Image or video</label>
+          <input class="form-control form-control-lg" type="file" name="media" accept="image/*,video/*" required>
+          <label class="label-sm mt-3 mb-2">Language</label>
+          <select class="form-select" id="language">
+            <option value="english">English</option>
+            <option value="hindi">Hindi</option>
+            <option value="telugu">Telugu</option>
+            <option value="kannada">Kannada</option>
+          </select>
+          <button class="btn btn-glow mt-3" type="submit"><i class="bi bi-magic"></i> Predict Upload</button>
+        </form>
+        <div class="speech-status mt-3" id="speech-status"></div>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <div id="upload-result" class="panel muted">Prediction result will appear here.</div>
+    </div>
+  </section>
+{% endblock %}

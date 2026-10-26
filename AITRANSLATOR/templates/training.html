@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Training - AI SignBridge{% endblock %}
+{% block head %}<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>{% endblock %}
+{% block content %}
+  <section class="page-head">
+    <div>
+      <h1>Training and Model Generation</h1>
+      <p class="muted mb-0">Use the training script to regenerate the TensorFlow CNN model and dashboard metrics.</p>
+    </div>
+  </section>
+
+  <section class="row g-3">
+    <div class="col-lg-7">
+      <div class="panel">
+        <h2 class="h5">Accuracy and Loss</h2>
+        <canvas id="accuracyChart" height="170"></canvas>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="panel">
+        <h2 class="h5">Class Frame Counts</h2>
+        <canvas id="classChart" height="170"></canvas>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="panel">
+        <h2 class="h5">Commands</h2>
+        <pre class="mb-0"><code>py collect_wlasl_subset.py --metadata C:\path\to\WLASL_v0.3.json --videos-dir C:\path\to\videos --max-per-sign 25
+py train_video_sign_language.py --epochs 15
+py train_sign_language.py --epochs 20</code></pre>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+{% block scripts %}
+  <script>window.CHART_DATA = {{ charts|tojson }};</script>
+{% endblock %}

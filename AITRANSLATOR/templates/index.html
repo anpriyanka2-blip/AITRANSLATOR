@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - AI SignBridge{% endblock %}
+{% block head %}<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>{% endblock %}
+{% block content %}
+  <section class="page-head">
+    <div>
+      <span class="status-chip mb-2"><i class="bi bi-stars"></i> Hackathon project demo</span>
+      <h1>AI-Based Two-Way Sign Language Translation System</h1>
+      <p class="muted mb-0">Live sign recognition, text-to-sign videos, upload prediction, speech output, training charts, and history.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <span class="status-chip"><i class="bi bi-cpu"></i> Model {{ "Ready" if model_ready else "Missing" }}</span>
+      <span class="status-chip"><i class="bi bi-bounding-box"></i> MediaPipe {{ "On" if mediapipe_available else "Fallback" }}</span>
+    </div>
+  </section>
+
+  <section class="row g-3">
+    <div class="col-6 col-xl-3"><div class="panel metric"><span>Available Signs</span><strong>{{ total_signs }}</strong><div class="muted small">Labels loaded</div></div></div>
+    <div class="col-6 col-xl-3"><div class="panel metric"><span>Modes</span><strong>4</strong><div class="muted small">Live, image, video, text</div></div></div>
+    <div class="col-6 col-xl-3"><div class="panel metric"><span>Stable Votes</span><strong>3+</strong><div class="muted small">Smooth prediction</div></div></div>
+    <div class="col-6 col-xl-3"><div class="panel metric"><span>Languages</span><strong>4</strong><div class="muted small">English + regional</div></div></div>
+  </section>
+
+  <section class="row g-3 mt-1">
+    <div class="col-xl-7">
+      <div class="panel">
+        <h2 class="h5">Training Graphs</h2>
+        <canvas id="accuracyChart" height="160"></canvas>
+      </div>
+    </div>
+    <div class="col-xl-5">
+      <div class="panel">
+        <h2 class="h5">Sample Sign Videos</h2>
+        <div class="gallery">
+          {% for sign in signs %}
+            <article class="sign-card" data-label="{{ sign.label }}">
+              {% if sign.video %}
+                <video src="{{ sign.video }}" autoplay muted loop controls></video>
+              {% elif sign.preview %}
+                <img src="{{ sign.preview }}" alt="{{ sign.label }}">
+              {% endif %}
+              <div class="sign-card-body"><strong class="text-capitalize">{{ sign.label }}</strong></div>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+{% block scripts %}
+  <script>window.CHART_DATA = {{ charts|tojson }};</script>
+{% endblock %}
